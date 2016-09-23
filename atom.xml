@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://adrianmao.github.io/"/>
-  <updated>2016-09-23T02:31:50.407Z</updated>
+  <updated>2016-09-23T02:53:09.962Z</updated>
   <id>http://adrianmao.github.io/</id>
   
   <author>
@@ -16,31 +16,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>JmeterInfluxdbGrafana</title>
+    <title>CentOS7下部署Influxdb+grafana+Jmeter</title>
     <link href="http://adrianmao.github.io/2016/09/23/JmeterInfluxdbGrafana/"/>
     <id>http://adrianmao.github.io/2016/09/23/JmeterInfluxdbGrafana/</id>
-    <published>2016-09-23T02:31:09.000Z</published>
-    <updated>2016-09-23T02:31:50.407Z</updated>
+    <published>2016-09-23T02:15:35.000Z</published>
+    <updated>2016-09-23T02:53:09.962Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="CentOS7�²���Influxdb-grafana-Jmeter"><a href="#CentOS7�²���Influxdb-grafana-Jmeter" class="headerlink" title="CentOS7�²���Influxdb+grafana+Jmeter"></a>CentOS7�²���Influxdb+grafana+Jmeter</h1><p>CentOS7�°�װ�����齨������Jmeterִ�й����е�����չʾ�����½���¼�Լ��Ĳ������̣�</p>
-<h2 id="��װ����Influxdb"><a href="#��װ����Influxdb" class="headerlink" title="��װ����Influxdb"></a>��װ����Influxdb</h2><p>���̱Ƚϼ򵥣���װ֮ǰ�ǵ��ȹرշ���ǽ��selinux�����Ի��������ô����<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#��װInfluxdb,��װ���ɺ󣬻��Զ����뵽init.d������ϵͳ����</div><div class="line">wget https://dl.influxdata.com/influxdb/releases/influxdb-1.0.0.x86_64.rpm </div><div class="line">rpm -ivh influxdb-1.0.0.x86_64.rpm </div><div class="line">#����Influxdb</div><div class="line">systemctl start influxdb.service</div><div class="line">systemctl status influxdb.service</div></pre></td></tr></table></figure></p>
-<p>�鿴status�����Կ�����ɫ��active��ʾ�����ɹ��ˣ����Է���ip:8083�����ʣ�����ҳ����ʾ�����ɹ���<br>������Ҫ�޸�influxdb�����ã����������˿ڣ�influxdb�������ļ�λ����/etc/influxdb/influxdb.conf<br>vim�༭����</p>
-<p>Influxdb��װ���Ժ�����Ҫ��Jmeter����һ�����ݿ����ڴ���Jmeter����ʱ�����ݡ�<br>��������Ҳ�Ƚ����ף��Ƽ�ֱ����8083��ҳ���ϵ���query template�����˵������Կ���һ��create database�İ�ť��ѡ�����ݲ���һ������ȥ�����ˡ���������ʡ�ԡ�</p>
-<p>������jmeter�Ժ���Ҫ��influxdb�������ļ��½�������(/etc/influxdb/influxdb.conf)<br>[[graphite]]<br>  enabled = true<br>  database = “jmeter”<br>  bind-address = “:2003”<br>  protocol = “tcp”<br>  consistency-level = “one”<br>  separator = “.”</p>
-<p>��Ҫ���õ���jmeter��backend listenerȥ����influxdb�Ķ˿ں����ݿ����ƣ��������ú�restart����</p>
+    <content type="html"><![CDATA[<p>CentOS7下安装以上组建，用于Jmeter执行过程中的数据展示，文章仅记录自己的部署过程：</p>
+<h2 id="安装配置Influxdb"><a href="#安装配置Influxdb" class="headerlink" title="安装配置Influxdb"></a>安装配置Influxdb</h2><p>过程比较简单，安装之前记得先关闭防火墙和selinux，测试环境嘛，先这么折腾<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#安装Influxdb,安装完成后，会自动加入到init.d下面随系统启动</div><div class="line">wget https://dl.influxdata.com/influxdb/releases/influxdb-1.0.0.x86_64.rpm </div><div class="line">rpm -ivh influxdb-1.0.0.x86_64.rpm </div><div class="line">#启动Influxdb</div><div class="line">systemctl start influxdb.service</div><div class="line">systemctl status influxdb.service</div></pre></td></tr></table></figure></p>
+<p>查看status后可以看到绿色的active表示启动成功了，可以访问ip:8083来访问，看到页面表示部署成功了<br>如果需要修改influxdb的配置，比如服务端口，influxdb的配置文件位置在/etc/influxdb/influxdb.conf<br>vim编辑即可</p>
+<p>Influxdb安装好以后，需要给Jmeter创建一个数据库用于存放Jmeter运行时的数据。<br>创建方法也比较容易，推荐直接在8083的页面上点击query template下拉菜单，可以看到一个create database的按钮，选择根据操作一步步下去就行了。具体操作省略。</p>
+<p>创建完jmeter以后还要到influxdb的配置文件下进行配置(/etc/influxdb/influxdb.conf)<br>[[graphite]]<br>  enabled = true<br>  database = “jmeter”<br>  bind-address = “:2003”<br>  protocol = “tcp”<br>  consistency-level = “one”<br>  separator = “.”</p>
+<p>主要配置的是jmeter用backend listener去连接influxdb的端口和数据库名称，保存配置后restart服务</p>
 <hr>
-<h2 id="��װ����grafana"><a href="#��װ����grafana" class="headerlink" title="��װ����grafana"></a>��װ����grafana</h2><p>��װ����ͬ���򵥣�<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.1.1-1470047149.x86_64.rpm </div><div class="line">rpm grafana-3.1.1-1470047149.x86_64.rpm </div><div class="line">#��grafana����������Ȼ������</div><div class="line">systemctl enable grafana-server</div><div class="line">systemctl start grafana-server</div><div class="line">systemctl status grafana-server</div></pre></td></tr></table></figure></p>
-<p>ͬ��Ҳ�ǿ�����ɫ��active����ʾ�����ɹ���Ȼ����½<a href="http://ip:3000/�鿴��Ӧ�ó��ֵ�½������,��½�û���������Ϊadmin����ɫ��ҳ���ȽϿ�" target="_blank" rel="external">http://ip:3000/�鿴��Ӧ�ó��ֵ�½������,��½�û���������Ϊadmin����ɫ��ҳ���ȽϿ�</a><br>����֮�����Ϸ�ͼ�������˵�ѡ��Data sources���øղ�װ�õ�influxdbΪ����Դ�������е㸴�ӣ��������£�<br>����ʲô������д�ˣ�typeѡ��influxdb��URLд<a href="http://ip:8086֮ǰ˵����accessѡdirectly����û�д�����http" target="_blank" rel="external">http://ip:8086֮ǰ˵����accessѡdirectly����û�д�����http</a> auth��֤Ҳû�У���ѡ��databaseд֮ǰ����jmeter���û���������Ϊroot�������󼴿ɡ�<br>datasource�������ɺ���������dashboad����������<br>Ȼ������dashboad��������ѡ��new����Ļ�������и���ɫ�ɳ���ť����������������Ҫ�ĸ���������ʱ�������˴���ͼΪ������add panel-&gt;graph-&gt;metric����tab������һ�У��и�sql���䣬����measurement����������������ѡ����Ҫչʾ�����ݼ��ɡ�</p>
-<p>�����и��ܶ����þͲ�һһ˵���ˣ���ɫ��ͼ�������Զ����Ե������þ���������ʾһ�����ǣ����Ͻ���filter��ѡ��today so far��Ȼ��fresh every 5s���Ϳ��Կ���ʵʱ�������ˡ�</p>
-<p>ò��ֻ�ܿ�����Ӧʱ�䣬��ʱ�ȸ��µ���������о����ټ������¡�</p>
+<h2 id="安装配置grafana"><a href="#安装配置grafana" class="headerlink" title="安装配置grafana"></a>安装配置grafana</h2><p>安装过程同样简单：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.1.1-1470047149.x86_64.rpm </div><div class="line">rpm grafana-3.1.1-1470047149.x86_64.rpm </div><div class="line">#把grafana加入自启动然后启动</div><div class="line">systemctl enable grafana-server</div><div class="line">systemctl start grafana-server</div><div class="line">systemctl status grafana-server</div></pre></td></tr></table></figure></p>
+<p>同样也是看到绿色的active后表示启动成功，然后登陆<a href="http://ip:3000/查看，应该出现登陆界面了,登陆用户名密码均为admin，黑色的页面比较酷" target="_blank" rel="external">http://ip:3000/查看，应该出现登陆界面了,登陆用户名密码均为admin，黑色的页面比较酷</a><br>进入之后左上方图标下拉菜单选择Data sources配置刚才装好的influxdb为数据源，配置有点复杂，具体如下：<br>名字什么的随便写了，type选择influxdb，URL写<a href="http://ip:8086之前说过，access选directly这里没有代理，http" target="_blank" rel="external">http://ip:8086之前说过，access选directly这里没有代理，http</a> auth验证也没有，不选。database写之前创建jmeter，用户名密码均为root。保存后即可。<br>datasource配置完成后，再配置dashboad，具体如下<br>然后进入dashboad下拉框，选择new，屏幕最左边有个绿色飞出按钮，这里可以配置想要的各种数据暂时方法，此处以图为例，点add panel-&gt;graph-&gt;metric这个tab下面第一行，有个sql语句，点击measurement，会出现下拉框，选择想要展示的数据即可。</p>
+<p>里面有个很多配置就不一一说明了，颜色，图标的属性都可以调。能用就行啦。提示一点就是，右上角有filter，选择today so far，然后fresh every 5s，就可以看到实时的数据了。</p>
+<p>貌似只能看到响应时间，暂时先更新到这里，后面研究下再继续更新。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;CentOS7�²���Influxdb-grafana-Jmeter&quot;&gt;&lt;a href=&quot;#CentOS7�²���Influxdb-grafana-Jmeter&quot; class=&quot;headerlink&quot; title=&quot;CentOS7�²���Influxdb+g
+      &lt;p&gt;CentOS7下安装以上组建，用于Jmeter执行过程中的数据展示，文章仅记录自己的部署过程：&lt;/p&gt;
+&lt;h2 id=&quot;安装配置Influxdb&quot;&gt;&lt;a href=&quot;#安装配置Influxdb&quot; class=&quot;headerlink&quot; title=&quot;安装配置Influxdb&quot;
     
     </summary>
     
+    
+      <category term="Jmeter" scheme="http://adrianmao.github.io/tags/Jmeter/"/>
     
   </entry>
   
