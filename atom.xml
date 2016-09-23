@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://adrianmao.github.io/"/>
-  <updated>2016-09-21T10:43:18.008Z</updated>
+  <updated>2016-09-23T02:20:02.137Z</updated>
   <id>http://adrianmao.github.io/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS7�²���Influxdb+grafana+Jmeter</title>
+    <link href="http://adrianmao.github.io/2016/09/23/JmeterInfluxdbGrafana/"/>
+    <id>http://adrianmao.github.io/2016/09/23/JmeterInfluxdbGrafana/</id>
+    <published>2016-09-23T01:15:35.000Z</published>
+    <updated>2016-09-23T02:20:02.137Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="CentOS7�²���Influxdb-grafana-Jmeter"><a href="#CentOS7�²���Influxdb-grafana-Jmeter" class="headerlink" title="CentOS7�²���Influxdb+grafana+Jmeter"></a>CentOS7�²���Influxdb+grafana+Jmeter</h1><p>CentOS7�°�װ�����齨������Jmeterִ�й����е�����չʾ�����½���¼�Լ��Ĳ������̣�</p>
+<h2 id="��װ����Influxdb"><a href="#��װ����Influxdb" class="headerlink" title="��װ����Influxdb"></a>��װ����Influxdb</h2><p>���̱Ƚϼ򵥣���װ֮ǰ�ǵ��ȹرշ���ǽ��selinux�����Ի��������ô����<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#��װInfluxdb,��װ���ɺ󣬻��Զ����뵽init.d������ϵͳ����</div><div class="line">wget https://dl.influxdata.com/influxdb/releases/influxdb-1.0.0.x86_64.rpm </div><div class="line">rpm -ivh influxdb-1.0.0.x86_64.rpm </div><div class="line">#����Influxdb</div><div class="line">systemctl start influxdb.service</div><div class="line">systemctl status influxdb.service</div></pre></td></tr></table></figure></p>
+<p>�鿴status�����Կ�����ɫ��active��ʾ�����ɹ��ˣ����Է���ip:8083�����ʣ�����ҳ����ʾ�����ɹ���<br>������Ҫ�޸�influxdb�����ã����������˿ڣ�influxdb�������ļ�λ����/etc/influxdb/influxdb.conf<br>vim�༭����</p>
+<p>Influxdb��װ���Ժ�����Ҫ��Jmeter����һ�����ݿ����ڴ���Jmeter����ʱ�����ݡ�<br>��������Ҳ�Ƚ����ף��Ƽ�ֱ����8083��ҳ���ϵ���query template�����˵������Կ���һ��create database�İ�ť��ѡ�����ݲ���һ������ȥ�����ˡ���������ʡ�ԡ�</p>
+<p>������jmeter�Ժ���Ҫ��influxdb�������ļ��½�������(/etc/influxdb/influxdb.conf)<br>[[graphite]]<br>  enabled = true<br>  database = “jmeter”<br>  bind-address = “:2003”<br>  protocol = “tcp”<br>  consistency-level = “one”<br>  separator = “.”</p>
+<p>��Ҫ���õ���jmeter��backend listenerȥ����influxdb�Ķ˿ں����ݿ����ƣ��������ú�restart����</p>
+<hr>
+<h2 id="��װ����grafana"><a href="#��װ����grafana" class="headerlink" title="��װ����grafana"></a>��װ����grafana</h2><p>��װ����ͬ���򵥣�<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">wget https://grafanarel.s3.amazonaws.com/builds/grafana-3.1.1-1470047149.x86_64.rpm </div><div class="line">rpm grafana-3.1.1-1470047149.x86_64.rpm </div><div class="line">#��grafana����������Ȼ������</div><div class="line">systemctl enable grafana-server</div><div class="line">systemctl start grafana-server</div><div class="line">systemctl status grafana-server</div></pre></td></tr></table></figure></p>
+<p>ͬ��Ҳ�ǿ�����ɫ��active����ʾ�����ɹ���Ȼ����½<a href="http://ip:3000/�鿴��Ӧ�ó��ֵ�½������,��½�û���������Ϊadmin����ɫ��ҳ���ȽϿ�" target="_blank" rel="external">http://ip:3000/�鿴��Ӧ�ó��ֵ�½������,��½�û���������Ϊadmin����ɫ��ҳ���ȽϿ�</a><br>����֮�����Ϸ�ͼ�������˵�ѡ��Data sources���øղ�װ�õ�influxdbΪ����Դ�������е㸴�ӣ��������£�<br>����ʲô������д�ˣ�typeѡ��influxdb��URLд<a href="http://ip:8086֮ǰ˵����accessѡdirectly����û�д�����http" target="_blank" rel="external">http://ip:8086֮ǰ˵����accessѡdirectly����û�д�����http</a> auth��֤Ҳû�У���ѡ��databaseд֮ǰ����jmeter���û���������Ϊroot�������󼴿ɡ�<br>datasource�������ɺ���������dashboad����������<br>Ȼ������dashboad��������ѡ��new����Ļ�������и���ɫ�ɳ���ť����������������Ҫ�ĸ���������ʱ�������˴���ͼΪ������add panel-&gt;graph-&gt;metric����tab������һ�У��и�sql���䣬����measurement����������������ѡ����Ҫչʾ�����ݼ��ɡ�</p>
+<p>�����и��ܶ����þͲ�һһ˵���ˣ���ɫ��ͼ�������Զ����Ե������þ���������ʾһ�����ǣ����Ͻ���filter��ѡ��today so far��Ȼ��fresh every 5s���Ϳ��Կ���ʵʱ�������ˡ�</p>
+<p>ò��ֻ�ܿ�����Ӧʱ�䣬��ʱ�ȸ��µ���������о����ټ������¡�</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;CentOS7�²���Influxdb-grafana-Jmeter&quot;&gt;&lt;a href=&quot;#CentOS7�²���Influxdb-grafana-Jmeter&quot; class=&quot;headerlink&quot; title=&quot;CentOS7�²���Influxdb+g
+    
+    </summary>
+    
+    
+      <category term="Jmeter" scheme="http://adrianmao.github.io/tags/Jmeter/"/>
+    
+  </entry>
   
   <entry>
     <title>Jmeter3.0下使用Dashboard report generator生成html报告</title>

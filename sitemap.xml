@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://adrianmao.github.io/2016/09/23/JmeterInfluxdbGrafana/</loc>
+    
+    <lastmod>2016-09-23T02:20:02.137Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adrianmao.github.io/2016/09/14/JmeterDashboardGenerator/</loc>
     
     <lastmod>2016-09-21T10:43:18.008Z</lastmod>
