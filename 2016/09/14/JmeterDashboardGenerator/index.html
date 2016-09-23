@@ -73,8 +73,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
 
@@ -88,32 +86,32 @@
 
 
 
-<meta name="description" content="Jmeter3.0下使用Dashboard report generator生成html报告 我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。 官方参考地址：请戳我
+<meta name="description" content="我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。 官方参考地址：请戳我
 
 本篇文章主要是翻译和讲解如何配置Dashboard report generation，以及一个小例子。
 
 
-配置Dashboard Gener">
+配置Dashboard Generation Dashboard generation的配置文件reportgenerator">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jmeter3.0下使用Dashboard report generator生成html报告">
 <meta property="og:url" content="http://adrianmao.github.io/2016/09/14/JmeterDashboardGenerator/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Jmeter3.0下使用Dashboard report generator生成html报告 我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。 官方参考地址：请戳我
+<meta property="og:description" content="我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。 官方参考地址：请戳我
 
 本篇文章主要是翻译和讲解如何配置Dashboard report generation，以及一个小例子。
 
 
-配置Dashboard Gener">
+配置Dashboard Generation Dashboard generation的配置文件reportgenerator">
 <meta property="og:image" content="http://jmeter.apache.org/images/screenshots/transactioncontroller.png">
-<meta property="og:updated_time" content="2016-09-21T10:43:18.008Z">
+<meta property="og:updated_time" content="2016-09-23T02:59:33.228Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jmeter3.0下使用Dashboard report generator生成html报告">
-<meta name="twitter:description" content="Jmeter3.0下使用Dashboard report generator生成html报告 我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。 官方参考地址：请戳我
+<meta name="twitter:description" content="我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。 官方参考地址：请戳我
 
 本篇文章主要是翻译和讲解如何配置Dashboard report generation，以及一个小例子。
 
 
-配置Dashboard Gener">
+配置Dashboard Generation Dashboard generation的配置文件reportgenerator">
 <meta name="twitter:image" content="http://jmeter.apache.org/images/screenshots/transactioncontroller.png">
 
 
@@ -316,7 +314,7 @@
       
 
       
-        <h1 id="Jmeter3-0下使用Dashboard-report-generator生成html报告"><a href="#Jmeter3-0下使用Dashboard-report-generator生成html报告" class="headerlink" title="Jmeter3.0下使用Dashboard report generator生成html报告"></a>Jmeter3.0下使用Dashboard report generator生成html报告</h1><p> 我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。<br> 官方参考地址：<a href="http://jmeter.apache.org/usermanual/generating-dashboard.html" target="_blank" rel="external">请戳我</a></p>
+        <p> 我们知道Jmeter3.0之后支持将结果生成html报告，官网上将这个步骤称之为Dashboard report generation。<br> 官方参考地址：<a href="http://jmeter.apache.org/usermanual/generating-dashboard.html" target="_blank" rel="external">请戳我</a></p>
 <blockquote>
 <p>本篇文章主要是翻译和讲解如何配置Dashboard report generation，以及一个小例子。</p>
 <hr>
@@ -555,7 +553,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Jmeter3-0下使用Dashboard-report-generator生成html报告"><span class="nav-number">1.</span> <span class="nav-text">Jmeter3.0下使用Dashboard report generator生成html报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Dashboard-Generation"><span class="nav-number">1.1.</span> <span class="nav-text">配置Dashboard Generation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查user-properties中的配置"><span class="nav-number">1.1.1.</span> <span class="nav-text">检查user.properties中的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dashboard-Generator的配置"><span class="nav-number">1.1.2.</span> <span class="nav-text">Dashboard Generator的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图表设置"><span class="nav-number">1.2.</span> <span class="nav-text">图表设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用属性"><span class="nav-number">1.2.1.</span> <span class="nav-text">通用属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定设置"><span class="nav-number">1.2.2.</span> <span class="nav-text">指定设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用属性-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">通用属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊属性"><span class="nav-number">1.2.4.</span> <span class="nav-text">特殊属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图标属性"><span class="nav-number">1.2.5.</span> <span class="nav-text">图标属性</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Dashboard-Generation"><span class="nav-number">1.</span> <span class="nav-text">配置Dashboard Generation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查user-properties中的配置"><span class="nav-number">1.1.</span> <span class="nav-text">检查user.properties中的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dashboard-Generator的配置"><span class="nav-number">1.2.</span> <span class="nav-text">Dashboard Generator的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图表设置"><span class="nav-number">2.</span> <span class="nav-text">图表设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用属性"><span class="nav-number">2.1.</span> <span class="nav-text">通用属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定设置"><span class="nav-number">2.2.</span> <span class="nav-text">指定设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用属性-1"><span class="nav-number">2.3.</span> <span class="nav-text">通用属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊属性"><span class="nav-number">2.4.</span> <span class="nav-text">特殊属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图标属性"><span class="nav-number">2.5.</span> <span class="nav-text">图标属性</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
